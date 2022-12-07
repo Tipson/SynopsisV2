@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>SynopsisV2.Application</RootNamespace>
+        <AssemblyName>SynopsisV2.Application</AssemblyName>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Duende.IdentityServer.Storage" Version="6.0.4" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
+        <PackageReference Include="MailKit" Version="3.4.3" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-rc.2.22472.11" />
+        <PackageReference Include="MimeKit" Version="3.4.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Agendas\Commands\DeleteAgenda" />
+      <Folder Include="Agendas\Commands\UpdateAgenda" />
+      <Folder Include="Agendas\Queries\GetAgenda" />
+      <Folder Include="Agendas\Queries\GetGroupedAgendas" />
+      <Folder Include="Agendas\Queries\GetListAgendas" />
+      <Folder Include="Feedbacks\Commands" />
+    </ItemGroup>
+
+</Project>
