@@ -16,9 +16,9 @@ public record CreatePartnerCommand(
     SynopsisVersionType SynopsisType,
     ImportanceType Importance,
     int IsShow,
-    string Url) : IRequest<PartnerDto>;
+    string Url) : IRequest<PartnerListDto>;
 
-public class CreatePartnerCommandHandle : IRequestHandler<CreatePartnerCommand, PartnerDto>
+public class CreatePartnerCommandHandle : IRequestHandler<CreatePartnerCommand, PartnerListDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ public class CreatePartnerCommandHandle : IRequestHandler<CreatePartnerCommand, 
         _mapper = mapper;
     }
     
-    public async Task<PartnerDto> Handle(CreatePartnerCommand request, CancellationToken cancellationToken)
+    public async Task<PartnerListDto> Handle(CreatePartnerCommand request, CancellationToken cancellationToken)
     {
         var row = new Partner(
             request.Name,
@@ -47,6 +47,6 @@ public class CreatePartnerCommandHandle : IRequestHandler<CreatePartnerCommand, 
         await _dbContext
             .SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
-        return _mapper.Map<PartnerDto>(row);    
+        return _mapper.Map<PartnerListDto>(row);    
     }
 }

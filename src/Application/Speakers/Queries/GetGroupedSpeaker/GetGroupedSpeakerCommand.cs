@@ -8,6 +8,7 @@ using Synopsis.Models.Speakers;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 using SynopsisV2.Domain.Enums;
+using Speaker = Synopsis.Infrastructure.DbContext.Entities.Speaker;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetGroupedSpeaker;
 
@@ -40,7 +41,7 @@ public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeaker
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
 
-        var models = _mapper.Map<List<Common.Models.SpeakerDto>>(rows);
+        var models = _mapper.Map<List<Common.Models.Speaker>>(rows);
 
         foreach (var model in models)
         {

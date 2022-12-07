@@ -3,11 +3,11 @@ using MediatR;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace SynopsisV2.Application.Feedbacks.Queries.SendSmtpCommand;
+namespace SynopsisV2.Infrastructure.Services.SendSmtp;
 
-public record SendSmtpCommand(string Subject, string Body, string Recipient) : IRequest<Unit>;
+public record SendSmtp(string Subject, string Body, string Recipient) : IRequest<Unit>;
 
-public class SendSmtpCommandHandler : IRequestHandler<SendSmtpCommand, Unit>
+public class SendSmtpCommandHandler : IRequestHandler<SendSmtp, Unit>
 {
     private readonly IOptions<SmtpSecrets> _smtpSecrets;
     private readonly MailboxAddress _senderEmail;
@@ -18,7 +18,7 @@ public class SendSmtpCommandHandler : IRequestHandler<SendSmtpCommand, Unit>
         _senderEmail = new MailboxAddress(smtpSecrets.Value.Name, smtpSecrets.Value.Email);
     }
     
-    public async Task<Unit> Handle(SendSmtpCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(SendSmtp request, CancellationToken cancellationToken)
     {
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(_senderEmail);

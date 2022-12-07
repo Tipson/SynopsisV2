@@ -15,9 +15,9 @@ public record UpdatePartnerCommand(
     string Logo,
     PartnerType Type,
     ImportanceType Importance,
-    string Url) : IRequest<PartnerDto>;
+    string Url) : IRequest<PartnerListDto>;
 
-public class UpdatePartnerCommandHandler : IRequestHandler<UpdatePartnerCommand, PartnerDto>
+public class UpdatePartnerCommandHandler : IRequestHandler<UpdatePartnerCommand, PartnerListDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -27,7 +27,7 @@ public class UpdatePartnerCommandHandler : IRequestHandler<UpdatePartnerCommand,
         _dbContext = dbContext;
         _mapper = mapper;
     }
-    public async Task<PartnerDto> Handle(UpdatePartnerCommand request, CancellationToken cancellationToken)
+    public async Task<PartnerListDto> Handle(UpdatePartnerCommand request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Partners
             .SingleOrDefaultAsync(r => r.Id == request.Id, cancellationToken)
@@ -47,5 +47,5 @@ public class UpdatePartnerCommandHandler : IRequestHandler<UpdatePartnerCommand,
         await _dbContext
             .SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
-        return _mapper.Map<PartnerDto>(row);    }
+        return _mapper.Map<PartnerListDto>(row);    }
 }

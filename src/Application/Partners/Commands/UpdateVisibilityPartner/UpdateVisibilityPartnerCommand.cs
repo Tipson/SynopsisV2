@@ -10,9 +10,9 @@ namespace SynopsisV2.Application.Partners.Commands.UpdateVisibilityPartner;
 
 public record UpdateVisibilityPartnerCommand(
     int Id,
-    bool IsShow) : IRequest<PartnerDto>;
+    bool IsShow) : IRequest<PartnerListDto>;
 
-public class UpdateVisibilityPartnerCommandHandler : IRequestHandler<UpdateVisibilityPartnerCommand, PartnerDto>
+public class UpdateVisibilityPartnerCommandHandler : IRequestHandler<UpdateVisibilityPartnerCommand, PartnerListDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ public class UpdateVisibilityPartnerCommandHandler : IRequestHandler<UpdateVisib
         _mapper = mapper;
     }
     
-    public async Task<PartnerDto> Handle(UpdateVisibilityPartnerCommand request, CancellationToken cancellationToken)
+    public async Task<PartnerListDto> Handle(UpdateVisibilityPartnerCommand request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Partners
             .SingleOrDefaultAsync(r => r.Id == request.Id, cancellationToken)
@@ -36,6 +36,6 @@ public class UpdateVisibilityPartnerCommandHandler : IRequestHandler<UpdateVisib
         await _dbContext
             .SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
-        return _mapper.Map<PartnerDto>(row);
+        return _mapper.Map<PartnerListDto>(row);
     }
 }
