@@ -41,7 +41,7 @@ public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeaker
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
 
-        var models = _mapper.Map<List<Common.Models.Speaker>>(rows);
+        var models = _mapper.Map<List<Common.Models.SpeakerDto>>(rows);
 
         foreach (var model in models)
         {

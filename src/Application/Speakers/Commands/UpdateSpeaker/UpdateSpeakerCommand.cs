@@ -8,7 +8,6 @@ using Synopsis.Models.Speakers;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 using SynopsisV2.Domain.Enums;
-using Speaker = SynopsisV2.Application.Common.Models.Speaker;
 
 namespace SynopsisV2.Application.Speakers.Commands.UpdateSpeaker;
 
@@ -32,9 +31,9 @@ public record UpdateSpeakerCommand(
     List<UpdateLogoCommand> Logos,
     bool IsFavorite = false,
     bool CommissionMember = false,
-    int? PartnerId = null) : IRequest<Speaker>;
+    int? PartnerId = null) : IRequest<SpeakerDto>;
 
-public class UpdateSpeakerCommandHandler : IRequestHandler<UpdateSpeakerCommand, Speaker>
+public class UpdateSpeakerCommandHandler : IRequestHandler<UpdateSpeakerCommand, SpeakerDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -45,7 +44,7 @@ public class UpdateSpeakerCommandHandler : IRequestHandler<UpdateSpeakerCommand,
         _mapper = mapper;
     }
 
-    public async Task<Speaker> Handle(UpdateSpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<SpeakerDto> Handle(UpdateSpeakerCommand request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Speakers
             .SingleOrDefaultAsync(r => r.Id == request.Id, cancellationToken)
@@ -80,6 +79,6 @@ public class UpdateSpeakerCommandHandler : IRequestHandler<UpdateSpeakerCommand,
             .SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
 
-        return _mapper.Map<Speaker>(row);
+        return _mapper.Map<SpeakerDto>(row);
     }
 }

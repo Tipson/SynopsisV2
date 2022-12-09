@@ -5,13 +5,12 @@ using Synopsis.Infrastructure;
 using Synopsis.Infrastructure.DbContext.Entities;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
-using Speaker = SynopsisV2.Application.Common.Models.Speaker;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetSpeakerAsRow;
 
-public record GetAsRowSpeakerCommand(int Id) : IRequest<Speaker>;
+public record GetAsRowSpeakerCommand(int Id) : IRequest<SpeakerDto>;
 
-public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerCommand, Speaker>
+public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerCommand, SpeakerDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -22,7 +21,7 @@ public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerComm
         _mapper = mapper;
     }
 
-    public async Task<Speaker> Handle(GetAsRowSpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<SpeakerDto> Handle(GetAsRowSpeakerCommand request, CancellationToken cancellationToken)
     {
         {
             var row = await _dbContext.Speakers
@@ -33,7 +32,7 @@ public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerComm
                 throw new InvalidOperationException();
             }
 
-            return _mapper.Map<Speaker>(row);
+            return _mapper.Map<SpeakerDto>(row);
         }
     }
 }

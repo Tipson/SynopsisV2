@@ -6,7 +6,6 @@ using Synopsis.Models;
 using Synopsis.Models.Speakers;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Domain.Enums;
-using Speaker = SynopsisV2.Application.Common.Models.Speaker;
 
 namespace SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 
@@ -30,9 +29,9 @@ public record CreateSpeakerCommand(
     bool IsShow = true,
     bool CommissionMember = false,
     bool IsFavorite = false,
-    int? PartnerId = null) : IRequest<Common.Models.Speaker>;
+    int? PartnerId = null) : IRequest<Common.Models.SpeakerDto>;
 
-public class CreateSpeakerCommandHandler : IRequestHandler<CreateSpeakerCommand, Speaker>
+public class CreateSpeakerCommandHandler : IRequestHandler<CreateSpeakerCommand, SpeakerDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -42,7 +41,7 @@ public class CreateSpeakerCommandHandler : IRequestHandler<CreateSpeakerCommand,
         _dbContext = dbContext;
         _mapper = mapper;
     }
-    public async Task<Speaker> Handle(CreateSpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<SpeakerDto> Handle(CreateSpeakerCommand request, CancellationToken cancellationToken)
     {
         var row = new Synopsis.Infrastructure.DbContext.Entities.Speaker(
             request.NameEn,
@@ -75,6 +74,6 @@ public class CreateSpeakerCommandHandler : IRequestHandler<CreateSpeakerCommand,
             .SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
 
-        return _mapper.Map<Speaker>(row);
+        return _mapper.Map<SpeakerDto>(row);
     }
 }

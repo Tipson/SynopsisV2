@@ -9,7 +9,7 @@ namespace SynopsisV2.Application.Common.Models;
 public class AgendaDto : IMapFrom<Agenda>
 {
     public Guid Id { get; set; }
-    public List<Synopsis.Infrastructure.DbContext.Entities.Speaker> Speakers { get; set; }
+    public List<SpeakerDto> Speakers { get; set; }
     public SynopsisVersionType SynopsisType { get; set; }
     public string Topic { get; set; }
     public string TopicEn { get; set; }

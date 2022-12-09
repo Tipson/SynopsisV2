@@ -31,6 +31,6 @@ public class GetListPartnerCommandHandler : IRequestHandler<GetListPartnerComman
             .ToListAsync(cancellationToken);
 
         var model = (_mapper.Map<List<Partner>>(rows));
-        return _mapper.Map<Common.Models.PartnerListDto>(model); //Todo
+        return _mapper.Map<PartnerListDto>(model); //Todo
     }
 }

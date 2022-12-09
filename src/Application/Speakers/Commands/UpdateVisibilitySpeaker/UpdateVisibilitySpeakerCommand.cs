@@ -5,15 +5,14 @@ using Synopsis.Infrastructure;
 using Synopsis.Infrastructure.DbContext.Entities;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
-using Speaker = SynopsisV2.Application.Common.Models.Speaker;
 
 namespace SynopsisV2.Application.Speakers.Commands.UpdateVisibilitySpeaker;
 
 public record UpdateVisibilitySpeakerCommand(
     int Id,
-    bool IsShow) : IRequest<Speaker>;
+    bool IsShow) : IRequest<SpeakerDto>;
 
-public class UpdateVisibilitySpeakerCommandHandler : IRequestHandler<UpdateVisibilitySpeakerCommand, Speaker>
+public class UpdateVisibilitySpeakerCommandHandler : IRequestHandler<UpdateVisibilitySpeakerCommand, SpeakerDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -23,7 +22,7 @@ public class UpdateVisibilitySpeakerCommandHandler : IRequestHandler<UpdateVisib
         _dbContext = dbContext;
         _mapper = mapper;
     }
-    public async Task<Speaker> Handle(UpdateVisibilitySpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<SpeakerDto> Handle(UpdateVisibilitySpeakerCommand request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Speakers
             .SingleOrDefaultAsync(r => r.Id == request.Id, cancellationToken)
@@ -37,6 +36,6 @@ public class UpdateVisibilitySpeakerCommandHandler : IRequestHandler<UpdateVisib
         await _dbContext
             .SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
-        return _mapper.Map<Speaker>(row);    
+        return _mapper.Map<SpeakerDto>(row);    
     }
 }
