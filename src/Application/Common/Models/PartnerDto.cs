@@ -7,7 +7,7 @@ using SynopsisV2.Domain.Enums;
 
 namespace SynopsisV2.Application.Common.Models;
 
-public class PartnerListDto : IMapFrom<Partner>
+public class PartnerDto : IMapFrom<Partner>
 {
     public int Id { get; set; }
     public string Name { get; set; }

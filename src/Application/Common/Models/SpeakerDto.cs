@@ -7,7 +7,7 @@ using SynopsisV2.Domain.Enums;
 
 namespace SynopsisV2.Application.Common.Models;
 
-public class SpeakerDto : IMapFrom<Synopsis.Infrastructure.DbContext.Entities.Speaker>
+public class SpeakerDto : IMapFrom<Speaker>
 {
     public int Id { get; set; }
     public string Name { get; set; }

@@ -7,9 +7,9 @@ using SynopsisV2.Application.Common.Models;
 
 namespace SynopsisV2.Application.Partners.Queries.GetPartner;
 
-public record GetPartnerCommand(int Id) : IRequest<PartnerListDto>;
+public record GetPartnerCommand(int Id) : IRequest<PartnerDto>;
 
-public class GetPartnerCommandHandler : IRequestHandler<GetPartnerCommand, PartnerListDto>
+public class GetPartnerCommandHandler : IRequestHandler<GetPartnerCommand, PartnerDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ public class GetPartnerCommandHandler : IRequestHandler<GetPartnerCommand, Partn
         _mapper = mapper;
     }
     
-    public async Task<PartnerListDto> Handle(GetPartnerCommand request, CancellationToken cancellationToken)
+    public async Task<PartnerDto> Handle(GetPartnerCommand request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Partners
             .Include(r => r.Speakers)
@@ -33,5 +33,5 @@ public class GetPartnerCommandHandler : IRequestHandler<GetPartnerCommand, Partn
             throw new InvalidOperationException($"The Partners with id = {request.Id} not found");
         }
 
-        return _mapper.Map<PartnerListDto>(row);    }
+        return _mapper.Map<PartnerDto>(row);    }
 }
