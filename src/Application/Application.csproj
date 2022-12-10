@@ -29,6 +29,7 @@
       <Folder Include="Agendas\Queries\GetGroupedAgendas" />
       <Folder Include="Agendas\Queries\GetListAgendas" />
       <Folder Include="Feedbacks\Commands" />
+      <Folder Include="Feedbacks\Queries" />
     </ItemGroup>
 
 </Project>

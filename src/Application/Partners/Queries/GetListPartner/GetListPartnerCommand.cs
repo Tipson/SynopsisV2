@@ -8,9 +8,9 @@ using SynopsisV2.Domain.Enums;
 
 namespace SynopsisV2.Application.Partners.Queries.GetListPartner;
 
-public record GetListPartnerCommand(SynopsisVersionType VersionType) : IRequest<PartnerDto>;
+public record GetListPartnerCommand(SynopsisVersionType VersionType) : IRequest<PartnerListDto>;
 
-public class GetListPartnerCommandHandler : IRequestHandler<GetListPartnerCommand, PartnerDto>
+public class GetListPartnerCommandHandler : IRequestHandler<GetListPartnerCommand, PartnerListDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ public class GetListPartnerCommandHandler : IRequestHandler<GetListPartnerComman
         _mapper = mapper;
     }
     
-    public async Task<PartnerDto> Handle(GetListPartnerCommand request, CancellationToken cancellationToken)
+    public async Task<PartnerListDto> Handle(GetListPartnerCommand request, CancellationToken cancellationToken)
     {
         var rows = await _dbContext.Partners
             .Include(r => r.Speakers)
@@ -31,6 +31,7 @@ public class GetListPartnerCommandHandler : IRequestHandler<GetListPartnerComman
             .ToListAsync(cancellationToken);
 
         var model = (_mapper.Map<List<Partner>>(rows));
-        return _mapper.Map<PartnerDto>(model); //Todo
+        
+        return _mapper.Map<PartnerListDto>(model); //Todo
     }
 }
