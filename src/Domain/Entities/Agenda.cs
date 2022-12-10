@@ -9,6 +9,7 @@ public class Agenda
     public DateTimeOffset EndTime { get; set; }
     public string TopicRu { get; set; }
     public string TopicEn { get; set; }
+    public string Topic { get; set; }
     public string SynopsisType { get; }
     public List<Speaker> Speakers { get; set; }
 
