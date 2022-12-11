@@ -10,10 +10,10 @@ using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 using SynopsisV2.Domain.Enums;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetSpeaker;
-public record GetSpeakerCommand(int Id, 
+public record GetSpeakerQuery(int Id, 
     string Lang) : IRequest<SpeakerDto>;
 
-public class GetSpeakerCommandHandler : IRequestHandler<GetSpeakerCommand, SpeakerDto>
+public class GetSpeakerCommandHandler : IRequestHandler<GetSpeakerQuery, SpeakerDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ public class GetSpeakerCommandHandler : IRequestHandler<GetSpeakerCommand, Speak
         _dbContext = dbContext;
         _mapper = mapper;
     }
-    public async Task<SpeakerDto> Handle(GetSpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<SpeakerDto> Handle(GetSpeakerQuery request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Speakers
             .Include(r => r.Partner)

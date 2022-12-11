@@ -11,10 +11,10 @@ using SynopsisV2.Domain.Enums;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetListSpeakers;
 
-public record GetListSpeakerCommand(SynopsisVersionType VersionType, 
+public record GetListSpeakerQuery(SynopsisVersionType VersionType, 
     string Lang) : IRequest<SpeakerListDto>;
 
-public class GetListSpeakerCommandHandler : IRequestHandler<GetListSpeakerCommand, SpeakerListDto>
+public class GetListSpeakerCommandHandler : IRequestHandler<GetListSpeakerQuery, SpeakerListDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ public class GetListSpeakerCommandHandler : IRequestHandler<GetListSpeakerComman
         _mapper = mapper;
     }
     
-    public async Task<SpeakerListDto> Handle(GetListSpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<SpeakerListDto> Handle(GetListSpeakerQuery request, CancellationToken cancellationToken)
     {
         var rows = await _dbContext.Speakers
             .Include(r => r.Partner)

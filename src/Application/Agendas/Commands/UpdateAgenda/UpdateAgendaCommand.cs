@@ -12,7 +12,7 @@ public record UpdateAgendaCommand(
     string TopicEn,
     string TopicRu,
     DateTimeOffset Time,
-    List<GetAsRowSpeakerCommand> Speakers) : IRequest<AgendaDto>;
+    List<GetAsRowSpeakerQuery> Speakers) : IRequest<AgendaDto>;
 
 public class UpdateAgendaCommandHandler : IRequestHandler<UpdateAgendaCommand, AgendaDto>
 {

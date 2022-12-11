@@ -11,7 +11,7 @@ using SynopsisV2.Domain.Enums;
 namespace SynopsisV2.Application.Agendas.Commands.CreateAgenda;
 
 public record CreateAgendaCommand(
-    IEnumerable<GetAsRowSpeakerCommand> Speakers,
+    IEnumerable<GetAsRowSpeakerQuery> Speakers,
     SynopsisVersionType SynopsisType,
     string TopicEn,
     string TopicRu,
