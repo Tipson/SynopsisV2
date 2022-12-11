@@ -47,6 +47,6 @@ public class GetGroupedPartnerQueryHandler : IRequestHandler<GetGroupedPartnerQu
             SilverSponsors = partnersGroupByType.SingleOrDefault(p => p.Key == (int?)PartnerType.SilverSponsors)?.ToList(),
             GoldSponsors = partnersGroupByType.SingleOrDefault(p => p.Key == (int?)PartnerType.GoldSponsors)?.ToList(),
             DiamondSponsors = partnersGroupByType.SingleOrDefault(p => p.Key == (int?)PartnerType.DiamondSponsors)?.ToList(),
-        };    
+        };
     }
 }
