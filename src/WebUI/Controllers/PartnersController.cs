@@ -60,6 +60,4 @@ public class PartnersController : ApiControllerBase
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
-    
-    
 }
