@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SynopsisV2.Application.Common.Models;
+using SynopsisV2.Application.Tickets.Commands.UpdateTicket;
 using SynopsisV2.Application.Tickets.Queries.GetTicket;
 using SynopsisV2.WebUI.Controllers;
 
@@ -11,7 +13,7 @@ public class TicketsController : ApiControllerBase
 {
 
     [Route("TicketCheck")]
-    public async Task<ActionResult> TicketCheck([Required]string code, CancellationToken token = default)
+    public async Task<ActionResult> TicketCheck([Required]int code, CancellationToken token = default)
     {
         HttpContext.Session.Set("Result", null);
 
@@ -20,7 +22,7 @@ public class TicketsController : ApiControllerBase
             return new RedirectResult("/" + HttpContext.Session.Get("Culture") + "/ticket?type=2");
         }
 
-        var ticket = await Mediator.Send(new GetTicketQuery(code, token);
+        var ticket = await Mediator.Send(new GetTicketQuery(code));
 
         if (ticket.Type != 0)
         {
@@ -51,10 +53,8 @@ public class TicketsController : ApiControllerBase
             return View();
         }
         
-        var ticket = await _ticketService.Get(
-            new GetTicketCommand(
-                BitConverter.ToInt32(
-                    HttpContext.Session.Get("ID"))),
+        var ticket = await Mediator.Send(new GetTicketQuery(BitConverter.ToInt32(
+                HttpContext.Session.Get("ID"))),
             token)
             .ConfigureAwait(false);
 
@@ -63,8 +63,9 @@ public class TicketsController : ApiControllerBase
         return View();
     }
     
+    
     [HttpPost]
-    public async Task<ActionResult> Ticket(Ticket user, CancellationToken token)
+    public async Task<ActionResult> Ticket(TicketDto user, CancellationToken token)
     {
 
         if (HttpContext.Session.Get("ID") == null)
@@ -72,16 +73,16 @@ public class TicketsController : ApiControllerBase
             return View();
         }
         
-        var ticket = await _ticketService.Update(
-                new UpdateTicketCommand(
+        var ticket = await Mediator.Send(new UpdateTicketCommand(
                     BitConverter.ToInt32(
                         HttpContext.Session.Get("ID")),
                     user.Telegram,
                     user.WalletBsc,
                     user.Name),
                 token)
+                
             .ConfigureAwait(false);
-        ViewBag.User = user;
+            ViewBag.User = user;
 
             return View();
 
