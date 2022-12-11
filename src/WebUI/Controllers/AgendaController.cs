@@ -23,7 +23,7 @@ public class AgendaController : ApiControllerBase
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<Agenda>>> GetAll(GetListAgendasCommand command)
+    public async Task<ActionResult<IEnumerable<AgendaListDto>>> GetAll(GetListAgendasCommand command)
     {
         var result = await Mediator.Send(command)
             .ConfigureAwait(false);
