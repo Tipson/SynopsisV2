@@ -7,9 +7,9 @@ using SynopsisV2.Application.Common.Models;
 
 namespace SynopsisV2.Application.Tickets.Queries.GetByCodeTicket;
 
-public record GetByCodeTicketCommand(string Code) : IRequest<TicketDto>;
+public record GetByCodeTicketQuery(string Code) : IRequest<TicketDto>;
 
-public class GetByCodeTicketCommandHandler : IRequestHandler<GetByCodeTicketCommand, TicketDto>
+public class GetByCodeTicketCommandHandler : IRequestHandler<GetByCodeTicketQuery, TicketDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ public class GetByCodeTicketCommandHandler : IRequestHandler<GetByCodeTicketComm
         _mapper = mapper;
     }
      
-    public async Task<TicketDto> Handle(GetByCodeTicketCommand request, CancellationToken cancellationToken)
+    public async Task<TicketDto> Handle(GetByCodeTicketQuery request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Tickets
             .AsNoTracking()

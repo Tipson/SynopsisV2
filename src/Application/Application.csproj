@@ -23,11 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Agendas\Commands\DeleteAgenda" />
-      <Folder Include="Agendas\Commands\UpdateAgenda" />
-      <Folder Include="Agendas\Queries\GetAgenda" />
-      <Folder Include="Agendas\Queries\GetGroupedAgendas" />
-      <Folder Include="Agendas\Queries\GetListAgendas" />
       <Folder Include="Feedbacks\Commands" />
     </ItemGroup>
 

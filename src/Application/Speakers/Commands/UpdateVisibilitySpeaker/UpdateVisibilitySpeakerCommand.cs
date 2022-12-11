@@ -5,7 +5,6 @@ using Synopsis.Infrastructure;
 using Synopsis.Infrastructure.DbContext.Entities;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
-using SpeakerDto = SynopsisV2.Application.Common.Models.SpeakerDto;
 
 namespace SynopsisV2.Application.Speakers.Commands.UpdateVisibilitySpeaker;
 

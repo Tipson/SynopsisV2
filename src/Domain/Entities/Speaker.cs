@@ -5,6 +5,7 @@ namespace Synopsis.Infrastructure.DbContext.Entities;
 public partial class Speaker
 {
     public int Id { get; set; }
+    public string? Name { get; set; }
 
     public string? NameEn { get; set; }
 

@@ -8,9 +8,9 @@ using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetSpeakerAsRow;
 
-public record GetAsRowSpeakerCommand(int Id) : IRequest<SpeakerDto>;
+public record GetAsRowSpeakerQuery(int Id) : IRequest<Speaker>;
 
-public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerCommand, SpeakerDto>
+public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerQuery, Speaker>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerComm
         _mapper = mapper;
     }
 
-    public async Task<SpeakerDto> Handle(GetAsRowSpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<Speaker> Handle(GetAsRowSpeakerQuery request, CancellationToken cancellationToken)
     {
         {
             var row = await _dbContext.Speakers
@@ -32,7 +32,7 @@ public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerComm
                 throw new InvalidOperationException();
             }
 
-            return _mapper.Map<SpeakerDto>(row); //Todo
+            return _mapper.Map<Speaker>(row);
         }
     }
 }

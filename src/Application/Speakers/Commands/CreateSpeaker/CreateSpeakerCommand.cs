@@ -43,7 +43,7 @@ public class CreateSpeakerCommandHandler : IRequestHandler<CreateSpeakerCommand,
     }
     public async Task<SpeakerDto> Handle(CreateSpeakerCommand request, CancellationToken cancellationToken)
     {
-        var row = new Speaker(
+        var row = new Synopsis.Infrastructure.DbContext.Entities.Speaker(
             request.NameEn,
             request.NameRu,
             request.PositionEn,

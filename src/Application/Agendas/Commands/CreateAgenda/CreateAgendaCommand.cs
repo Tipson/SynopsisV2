@@ -11,7 +11,7 @@ using SynopsisV2.Domain.Enums;
 namespace SynopsisV2.Application.Agendas.Commands.CreateAgenda;
 
 public record CreateAgendaCommand(
-    IEnumerable<GetAsRowSpeakerCommand> Speakers,
+    IEnumerable<GetAsRowSpeakerQuery> Speakers,
     SynopsisVersionType SynopsisType,
     string TopicEn,
     string TopicRu,
@@ -22,15 +22,17 @@ public class CreateAgendaCommandHandler : IRequestHandler<CreateAgendaCommand, A
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly ISender _sender;
 
-    public CreateAgendaCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public CreateAgendaCommandHandler(IApplicationDbContext dbContext, IMapper mapper, ISender sender)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _sender = sender;
     }
     public async Task<AgendaDto> Handle(CreateAgendaCommand request, CancellationToken cancellationToken)
     {
-        var speakersRow = request.Speakers.Select( s => _speakersService.GetAsRow(s, cancellationToken).Result).ToList();
+        var speakersRow = request.Speakers.Select( s => _sender.Send(s, cancellationToken).Result).ToList();
         
         var row = new Agenda(
             request.StartTime,

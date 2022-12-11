@@ -5,7 +5,7 @@ namespace SynopsisV2.Application.Speakers.Queries.GetGroupedSpeaker;
 
 public class SpeakersGroupedCollection
 {
-    public List<Common.Models.SpeakerDto>? Hosts { get; init; }
-    public List<Common.Models.SpeakerDto>? Speakers { get; init; }
-    public List<Common.Models.SpeakerDto> Favorites { get; init; }
+    public List<SpeakerDto>? Hosts { get; init; }
+    public List<SpeakerDto>? Speakers { get; init; }
+    public List<SpeakerDto> Favorites { get; init; }
 }

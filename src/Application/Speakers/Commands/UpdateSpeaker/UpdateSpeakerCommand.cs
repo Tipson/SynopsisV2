@@ -8,7 +8,6 @@ using Synopsis.Models.Speakers;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 using SynopsisV2.Domain.Enums;
-using SpeakerDto = SynopsisV2.Application.Common.Models.SpeakerDto;
 
 namespace SynopsisV2.Application.Speakers.Commands.UpdateSpeaker;
 
