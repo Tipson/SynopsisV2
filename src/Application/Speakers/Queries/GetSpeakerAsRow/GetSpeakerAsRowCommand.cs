@@ -10,12 +10,12 @@ namespace SynopsisV2.Application.Speakers.Queries.GetSpeakerAsRow;
 
 public record GetAsRowSpeakerQuery(int Id) : IRequest<Speaker>;
 
-public class GetSpeakerAsRowCommandHandler : IRequestHandler<GetAsRowSpeakerQuery, Speaker>
+public class GetSpeakerAsRowQueryHandler : IRequestHandler<GetAsRowSpeakerQuery, Speaker>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetSpeakerAsRowCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetSpeakerAsRowQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;

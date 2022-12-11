@@ -2,37 +2,33 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Synopsis.Infrastructure;
-using SynopsisV2.Application.Agendas.Queries.GetListAgendas;
 using SynopsisV2.Domain.Entities;
 using SynopsisV2.Domain.Enums;
 
-namespace SynopsisV2.Application.Agendas.Queries.GetGroupedAgendas;
+namespace SynopsisV2.Application.Agendas.Queries.GetListAgendas;
 
-public record GetGroupedAgendasCommand(SynopsisVersionType SynopsisVersionType,
-    string Lang) : IRequest<AgendasGroupedCollection>;
+public record GetListAgendasQuery(SynopsisVersionType VersionType, string Lang) : IRequest<AgendaListDto>;
 
-public class GetGroupedAgendasCommandHandler : IRequestHandler<GetGroupedAgendasCommand, AgendasGroupedCollection>
+public class GetListAgendasQueryHandler : IRequestHandler<GetListAgendasQuery, AgendaListDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetGroupedAgendasCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetListAgendasQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
     }
     
-    public async Task<AgendasGroupedCollection> Handle(GetGroupedAgendasCommand request, CancellationToken cancellationToken)
+    public async Task<AgendaListDto> Handle(GetListAgendasQuery request, CancellationToken cancellationToken)
     {
         var rows = await _dbContext.Agendas
-            .Include(r => r.Speakers)
+            .Include(r=>r.Speakers)
             .AsNoTracking()
-            .Where(r => r.SynopsisType == request.SynopsisVersionType.ToString())
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
         
         var models = _mapper.Map<List<Agenda>>(rows);
-        
         foreach (var model in models)
         {
             if (request.Lang == "ru")
@@ -52,11 +48,6 @@ public class GetGroupedAgendasCommandHandler : IRequestHandler<GetGroupedAgendas
                 }            
             }
         }
-
-        var agendasGroupedByDay = models.GroupBy(r => new DateTime(r.StartTime.Year, r.StartTime.Month, r.StartTime.Day));
-        return new AgendasGroupedCollection
-        {
-            AgendasGrouped = agendasGroupedByDay.Select(a => new AgendasGroupedCollection.AgendaGroupedItem(a.Key, a.ToList())) //todo Paramert type
-        };    
+        return _mapper.Map<AgendaListDto>(models);    
     }
 }

@@ -16,24 +16,24 @@ namespace WebUI.Controllers;
 public class AgendaController : ApiControllerBase
 {
     [HttpGet("[action]")]
-    public async Task<ActionResult<AgendaDto>> Get(GetAgendaCommand command)
+    public async Task<ActionResult<AgendaDto>> Get(GetAgendaQuery query)
     {
-        return await Mediator.Send(command)
+        return await Mediator.Send(query)
             .ConfigureAwait(false);
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<AgendaListDto>>> GetAll(GetListAgendasCommand command)
+    public async Task<ActionResult<IEnumerable<AgendaListDto>>> GetAll(GetListAgendasQuery query)
     {
-        var result = await Mediator.Send(command)
+        var result = await Mediator.Send(query)
             .ConfigureAwait(false);
         return Ok(result);
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<AgendasGroupedCollection>> GetGrouped(GetGroupedAgendasCommand command)
+    public async Task<ActionResult<AgendasGroupedCollection>> GetGrouped(GetGroupedAgendasQuery query)
     {
-        var result = await Mediator.Send(command)
+        var result = await Mediator.Send(query)
             .ConfigureAwait(false);
         return result;
     }

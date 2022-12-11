@@ -10,12 +10,12 @@ namespace SynopsisV2.Application.Partners.Queries.GetListPartner;
 
 public record GetListPartnerQuery(SynopsisVersionType VersionType) : IRequest<PartnerListDto>;
 
-public class GetListPartnerCommandHandler : IRequestHandler<GetListPartnerQuery, PartnerListDto>
+public class GetListPartnerQueryHandler : IRequestHandler<GetListPartnerQuery, PartnerListDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetListPartnerCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetListPartnerQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;

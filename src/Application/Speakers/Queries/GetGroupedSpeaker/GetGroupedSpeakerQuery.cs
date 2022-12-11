@@ -17,12 +17,12 @@ public record GetGroupedSpeakerQuery(
     string Lang) : IRequest<SpeakersGroupedCollection>;
 
 
-public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeakerQuery, SpeakersGroupedCollection>
+public class GetGroupedSpeakerQueryHandler : IRequestHandler<GetGroupedSpeakerQuery, SpeakersGroupedCollection>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetGroupedSpeakerCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetGroupedSpeakerQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;

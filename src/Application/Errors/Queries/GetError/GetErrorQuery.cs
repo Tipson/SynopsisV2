@@ -6,21 +6,21 @@ using SynopsisV2.Application.Common.Models;
 
 namespace SynopsisV2.Application.Errors.Queries.GetError;
 
-public record GetErrorCommand(
+public record GetErrorQuery(
     int Id) : IRequest<ErrorDto>;
 
-public class GetErrorCommandHandler : IRequestHandler<GetErrorCommand, ErrorDto>
+public class GetErrorQueryHandler : IRequestHandler<GetErrorQuery, ErrorDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetErrorCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetErrorQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
     }
     
-    public async Task<ErrorDto> Handle(GetErrorCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorDto> Handle(GetErrorQuery request, CancellationToken cancellationToken)
     {
         var row = await _dbContext.Errors
             .AsNoTracking()

@@ -9,12 +9,12 @@ namespace SynopsisV2.Application.Tickets.Queries.GetTicket;
 
 public record GetTicketQuery(int Id) : IRequest<TicketDto>;
 
-public class GetTicketCommandHandler : IRequestHandler<GetTicketQuery, TicketDto>
+public class GetTicketQueryHandler : IRequestHandler<GetTicketQuery, TicketDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetTicketCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetTicketQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;

@@ -25,9 +25,9 @@ public class PartnersController : ApiControllerBase
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<PartnerDto>>> GetGrouped(GetGroupedAgendasCommand command)
+    public async Task<ActionResult<IEnumerable<PartnerDto>>> GetGrouped(GetGroupedAgendasQuery query)
     {
-        var result = await Mediator.Send(command)
+        var result = await Mediator.Send(query)
             .ConfigureAwait(false);
         return Ok(result);
     }

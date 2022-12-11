@@ -13,12 +13,12 @@ namespace SynopsisV2.Application.Speakers.Queries.GetSpeaker;
 public record GetSpeakerQuery(int Id, 
     string Lang) : IRequest<SpeakerDto>;
 
-public class GetSpeakerCommandHandler : IRequestHandler<GetSpeakerQuery, SpeakerDto>
+public class GetSpeakerQueryHandler : IRequestHandler<GetSpeakerQuery, SpeakerDto>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetSpeakerCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetSpeakerQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
