@@ -18,11 +18,13 @@ public class UpdateAgendaCommandHandler : IRequestHandler<UpdateAgendaCommand, A
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly ISender _sender;
 
-    public UpdateAgendaCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public UpdateAgendaCommandHandler(IApplicationDbContext dbContext, IMapper mapper, ISender sender)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _sender = sender;
     }
     
     public async Task<AgendaDto> Handle(UpdateAgendaCommand request, CancellationToken cancellationToken)
@@ -38,7 +40,7 @@ public class UpdateAgendaCommandHandler : IRequestHandler<UpdateAgendaCommand, A
         row.TopicEn = request.TopicEn;
         row.TopicRu = request.TopicRu;
         row.StartTime = request.Time;
-        row.Speakers = request.Speakers.Select( s => _speakersService.GetAsRow(s, cancellationToken).Result).ToList();
+        row.Speakers = request.Speakers.Select(s => _sender.Send(s, cancellationToken).Result).ToList();
         
         await _dbContext
             .SaveChangesAsync(cancellationToken)

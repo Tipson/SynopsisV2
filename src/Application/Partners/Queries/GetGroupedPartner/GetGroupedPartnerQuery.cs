@@ -1,6 +1,6 @@
 ﻿namespace SynopsisV2.Application.Partners.Queries.GetGroupedPartner;
 
-public class GetGroupedPartnerCommand
+public class GetGroupedPartnerQuery
 {
     
 }

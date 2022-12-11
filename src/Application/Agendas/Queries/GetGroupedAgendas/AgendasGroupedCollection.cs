@@ -1,4 +1,5 @@
 ﻿using SynopsisV2.Application.Common.Models;
+using SynopsisV2.Domain.Entities;
 
 namespace SynopsisV2.Application.Agendas.Queries.GetGroupedAgendas;
 
@@ -8,5 +9,5 @@ public class AgendasGroupedCollection
     
     public record AgendaGroupedItem(
         DateTimeOffset Day,
-        IEnumerable<AgendaDto> Agendas);
+        List<Agenda> Agendas);
 }

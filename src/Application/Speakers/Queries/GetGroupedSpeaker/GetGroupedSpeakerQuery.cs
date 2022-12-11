@@ -12,12 +12,12 @@ using Speaker = Synopsis.Infrastructure.DbContext.Entities.Speaker;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetGroupedSpeaker;
 
-public record GetGroupedSpeakerCommand(
+public record GetGroupedSpeakerQuery(
     SynopsisVersionType SynopsisVersion, 
     string Lang) : IRequest<SpeakersGroupedCollection>;
 
 
-public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeakerCommand, SpeakersGroupedCollection>
+public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeakerQuery, SpeakersGroupedCollection>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeaker
         _mapper = mapper;
     }
     
-    public async Task<SpeakersGroupedCollection> Handle(GetGroupedSpeakerCommand request, CancellationToken cancellationToken)
+    public async Task<SpeakersGroupedCollection> Handle(GetGroupedSpeakerQuery request, CancellationToken cancellationToken)
     {
         var rows = await _dbContext.Speakers
             .Include(r => r.Partner)
@@ -41,7 +41,7 @@ public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeaker
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
 
-        var models = _mapper.Map<List<Common.Models.SpeakerDto>>(rows);
+        var models = _mapper.Map<List<SpeakerDto>>(rows);
 
         foreach (var model in models)
         {
@@ -63,8 +63,8 @@ public class GetGroupedSpeakerCommandHandler : IRequestHandler<GetGroupedSpeaker
         var speakersGroupByType = models.GroupBy(m => m.Type).ToList();
 
         return new SpeakersGroupedCollection {
-            Speakers = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Speaker)?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker)?.ToList() ?? (IEnumerable<SpeakersGroupedCollection>)new List<Speaker>()).ToList(),
-            Hosts = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Host)?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker)?.ToList() ?? (IEnumerable<SpeakersGroupedCollection>)new List<Speaker>()).ToList(),
+            Speakers = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Speaker.ToString())?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker.ToString())?.ToList() ?? new List<SpeakerDto>()).ToList(),
+            Hosts = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Host.ToString())?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker.ToString())?.ToList() ?? new List<SpeakerDto>()).ToList(),
             Favorites = models.Where(r=>r.IsFavorite).ToList(),
             
             // Speakers = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Speaker)?.ToList(),
