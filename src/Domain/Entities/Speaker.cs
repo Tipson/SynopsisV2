@@ -1,6 +1,6 @@
-﻿using SynopsisV2.Domain.Entities;
+﻿using Synopsis.Infrastructure.DbContext.Entities;
 
-namespace Synopsis.Infrastructure.DbContext.Entities;
+namespace SynopsisV2.Domain.Entities;
 
 public partial class Speaker
 {

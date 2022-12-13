@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Synopsis.Infrastructure.DbContext.Entities;
 
 namespace SynopsisV2.Infrastructure.Persistence;
 
@@ -26,11 +27,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         _mediator = mediator;
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
-
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
-
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
-
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -42,6 +39,15 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     {
         optionsBuilder.AddInterceptors(_auditableEntitySaveChangesInterceptor);
     }
+
+    public DbSet<Error> Errors { get; }
+    public DbSet<Partner> Partners { get; }
+    public DbSet<Speaker> Speakers { get; }
+    public DbSet<Ticket> Tickets { get; }
+    public DbSet<Agenda> Agendas { get; }
+    public DbSet<Site> Sites { get; }
+    public DbSet<Logo> Logos { get; }
+    public DbSet<Feedback> Feedbacks { get; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

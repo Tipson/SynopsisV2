@@ -1,4 +1,6 @@
-﻿namespace Synopsis.Infrastructure.DbContext.Entities;
+﻿using SynopsisV2.Domain.Entities;
+
+namespace Synopsis.Infrastructure.DbContext.Entities;
 
 public partial class Partner
 {

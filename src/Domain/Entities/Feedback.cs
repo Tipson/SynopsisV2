@@ -1,4 +1,4 @@
-﻿namespace Synopsis.Infrastructure.DbContext.Entities;
+﻿namespace SynopsisV2.Domain.Entities;
 
 public class Feedback
 {
@@ -6,11 +6,4 @@ public class Feedback
     public string? Email { get; set; }
     public string? Body { get; set; }
     public DateTimeOffset DateTimeSend { get; set; }
-
-    public Feedback(string email, string body)
-    {
-        Email = email;
-        Body = body;
-        DateTimeSend =  DateTimeOffset.UtcNow;
-    }
 }

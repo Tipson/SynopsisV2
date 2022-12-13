@@ -6,6 +6,7 @@ using Synopsis.Infrastructure.DbContext.Entities;
 using SynopsisV2.Application.Common.Interfaces;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
+using SynopsisV2.Domain.Entities;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetSpeakerAsRow;
 

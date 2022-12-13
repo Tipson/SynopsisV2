@@ -9,7 +9,7 @@ using SynopsisV2.Application.Common.Interfaces;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 using SynopsisV2.Domain.Enums;
-using Speaker = Synopsis.Infrastructure.DbContext.Entities.Speaker;
+using Speaker = SynopsisV2.Domain.Entities.Speaker;
 
 namespace SynopsisV2.Application.Speakers.Queries.GetGroupedSpeaker;
 
@@ -57,15 +57,15 @@ public class GetGroupedSpeakerQueryHandler : IRequestHandler<GetGroupedSpeakerQu
                 model.Name = model.NameEn;
             }
 
-            model.TypeName = model.Type;
+            model.TypeName = model.Type.ToString();
         }
         
 
         var speakersGroupByType = models.GroupBy(m => m.Type).ToList();
 
         return new SpeakersGroupedCollection {
-            Speakers = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Speaker.ToString())?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker.ToString())?.ToList() ?? new List<SpeakerDto>()).ToList(),
-            Hosts = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Host.ToString())?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker.ToString())?.ToList() ?? new List<SpeakerDto>()).ToList(),
+            Speakers = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Speaker)?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker)?.ToList() ?? new List<SpeakerDto>()).ToList(),
+            Hosts = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Host)?.Union(speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.HostSpeaker)?.ToList() ?? new List<SpeakerDto>()).ToList(),
             Favorites = models.Where(r=>r.IsFavorite).ToList(),
             
             // Speakers = speakersGroupByType.SingleOrDefault(s => s.Key == SpeakerType.Speaker)?.ToList(),
