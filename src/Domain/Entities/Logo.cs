@@ -10,9 +10,9 @@ public class Logo
 
     public Logo(
         int speakerId,
-        string logoPath)
+        string logo)
     {
         SpeakerId = speakerId;
-        LogoPath = logoPath;
+        LogoPath = logo;
     }
 }

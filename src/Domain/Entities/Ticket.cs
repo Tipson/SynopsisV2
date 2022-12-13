@@ -1,4 +1,4 @@
-﻿namespace Synopsis.Infrastructure.DbContext.Entities;
+﻿namespace SynopsisV2.Domain.Entities;
 
 public partial class Ticket
 {

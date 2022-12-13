@@ -1,13 +1,11 @@
-﻿using SynopsisV2.Application.Common.Interfaces;
-using SynopsisV2.Infrastructure.Persistence;
-using SynopsisV2.WebUI.Filters;
-using SynopsisV2.WebUI.Services;
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using SynopsisV2.Infrastructure.Persistence;
+using SynopsisV2.WebUI.Filters;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace WebUI;
 
 public static class ConfigureServices
 {

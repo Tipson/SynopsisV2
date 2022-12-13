@@ -18,7 +18,7 @@ public class SpeakerDto : IMapFrom<Speaker>
     public string PositionEn { get; set; }
     public string PositionRu { get; set; }
     public string Photo { get; set; }
-    public string Type { get; set; }
+    public SpeakerType Type { get; set; }
     public SynopsisVersionType SynopsisType { get; set; }
     public string TypeName { get; set; }
     public ImportanceType Important { get; set; }

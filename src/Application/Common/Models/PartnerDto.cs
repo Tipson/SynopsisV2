@@ -19,7 +19,7 @@ public class PartnerDto : IMapFrom<Partner>
     public string TypeName { get; set; }
     public ImportanceType Important { get; set; }
     public int IsShow { get; set; }
-    public List<SpeakerItem> Speakers { get; set; } 
+    public List<SpeakerItem> Speakers { get; set; }
 }
 
 public class SpeakerItem //todo

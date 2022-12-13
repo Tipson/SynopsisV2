@@ -1,4 +1,5 @@
 using SynopsisV2.Infrastructure.Persistence;
+using WebUI;
 
 var builder = WebApplication.CreateBuilder(args);
 

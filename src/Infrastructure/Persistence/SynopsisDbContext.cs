@@ -1,27 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Synopsis.Infrastructure.DbContext.Entities;
 using SynopsisV2.Application.Common.Models;
+using SynopsisV2.Domain.Entities;
 
 namespace SynopsisV2.Infrastructure.Persistence;
 
-public partial class SynopsisDbContext : Microsoft.EntityFrameworkCore.DbContext
+public partial class SynopsisDbContext : DbContext
 {
     public SynopsisDbContext(DbContextOptions<SynopsisDbContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<ErrorDto> Errors { get; set; } = null!;
-
-    public virtual DbSet<PartnerDto> Partners { get; set; } = null!;
-
-    public virtual DbSet<SpeakerDto> Speakers { get; set; } = null!;
-
-    public virtual DbSet<TicketDto> Tickets { get; set; } = null!;
-    public virtual DbSet<AgendaDto> Agendas { get; set; } = null!;
-    public virtual DbSet<SiteDto> Sites { get; set; } = null!;
-    public virtual DbSet<LogoDto> Logos { get; set; } = null!;
-    public virtual DbSet<FeedbackDto> Feedbacks { get; set; } = null!;
+    public virtual DbSet<Error> Errors { get; set; } = null!;
+    public virtual DbSet<Partner> Partners { get; set; } = null!;
+    public virtual DbSet<Speaker> Speakers { get; set; } = null!;
+    public virtual DbSet<Ticket> Tickets { get; set; } = null!;
+    public virtual DbSet<Agenda> Agendas { get; set; } = null!;
+    public virtual DbSet<Site> Sites { get; set; } = null!;
+    public virtual DbSet<Logo> Logos { get; set; } = null!;
+    public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
 
 
 
@@ -41,7 +39,7 @@ public partial class SynopsisDbContext : Microsoft.EntityFrameworkCore.DbContext
             entity.Property(e => e.Source).HasColumnOrder(5);
         });
 
-        modelBuilder.Entity<PartnerDto>(entity =>
+        modelBuilder.Entity<Partner>(entity =>
         {
             entity.Property(e => e.Id)
                 .HasColumnOrder(0)
@@ -59,7 +57,7 @@ public partial class SynopsisDbContext : Microsoft.EntityFrameworkCore.DbContext
                 .HasColumnName("URL");
         });
 
-        modelBuilder.Entity<SpeakerDto>(entity =>
+        modelBuilder.Entity<Speaker>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Speakers__02899F87A657070E");
 
@@ -82,7 +80,7 @@ public partial class SynopsisDbContext : Microsoft.EntityFrameworkCore.DbContext
                 .HasForeignKey(e => e.PartnerId);
         });
 
-        modelBuilder.Entity<>(entity =>
+        modelBuilder.Entity<Ticket>(entity =>
         {
             entity.Property(e => e.Id)
                 .HasColumnOrder(0)
@@ -98,7 +96,7 @@ public partial class SynopsisDbContext : Microsoft.EntityFrameworkCore.DbContext
                 .HasColumnName("WalletBSC");
         });
 
-        modelBuilder.Entity<AgendaDto>(entity =>
+        modelBuilder.Entity<Agenda>(entity =>
         {
             entity.HasIndex(e => e.Id)
                 .IsUnique();
@@ -124,13 +122,13 @@ public partial class SynopsisDbContext : Microsoft.EntityFrameworkCore.DbContext
                 .HasForeignKey(e => e.SpeakerId);
         });
 
-        modelBuilder.Entity<LogoDto>(entity =>
+        modelBuilder.Entity<Logo>(entity =>
         {
             entity.Property(e => e.SpeakerId);
-            entity.Property(e => e.Logo);
+            entity.Property(e => e.LogoPath);
 
-            entity.HasIndex(e => new { e.SpeakerId, e.Logo }).IsUnique();
-            entity.HasKey (e => new{e.Logo, e.SpeakerId });
+            entity.HasIndex(e => new { e.SpeakerId, e.LogoPath }).IsUnique();
+            entity.HasKey (e => new{e.LogoPath, e.SpeakerId });
             entity.HasOne(e => e.Speaker)
                 .WithMany(e => e.Logos)
                 .HasForeignKey(e => e.SpeakerId);

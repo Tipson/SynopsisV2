@@ -7,6 +7,5 @@ namespace SynopsisV2.Application.Common.Models;
 public class LogoDto : IMapFrom<Logo>
 {
     public int SpeakerId { get; set; }
-    public SpeakerDto Speaker { get; set; }
-    public string Logo { get; set; }
+    public string Path { get; set; }
 }
