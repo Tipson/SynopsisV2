@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using SynopsisV2.Application.Errors.Commands.CreateError;
 using SynopsisV2.WebUI.Controllers;
+using WebUI.Services;
 
 namespace WebUI.Controllers;
 
