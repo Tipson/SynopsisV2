@@ -17,7 +17,7 @@ public class TicketsController : ApiControllerBase
     {
         HttpContext.Session.Set("Result", null);
 
-        if (string.IsNullOrWhiteSpace(code))
+        if (string.IsNullOrWhiteSpace(code.ToString()))
         {
             return new RedirectResult("/" + HttpContext.Session.Get("Culture") + "/ticket?type=2");
         }
@@ -39,7 +39,7 @@ public class TicketsController : ApiControllerBase
         return new EmptyResult();
     }
     
-    [HttpGet]
+    /* [HttpGet]
     public async Task<ActionResult> Ticket(int type, CancellationToken token = default)
     {
         if (HttpContext.Session.Get("Result") == null)
@@ -62,31 +62,31 @@ public class TicketsController : ApiControllerBase
 
         return View();
     }
+    */
+    
+     /* [HttpPost]
+     public async Task<ActionResult> Ticket(TicketDto user, CancellationToken token)
+     {
+    
+         if (HttpContext.Session.Get("ID") == null)
+         {
+             return View();
+         }
+         
+         var ticket = await Mediator.Send(new UpdateTicketCommand(
+                     BitConverter.ToInt32(
+                         HttpContext.Session.Get("ID")),
+                     user.Telegram,
+                     user.WalletBsc,
+                     user.Name),
+                 token)
+                 
+             .ConfigureAwait(false);
+             ViewBag.User = user;
+    
+             return View();
     
     
-    [HttpPost]
-    public async Task<ActionResult> Ticket(TicketDto user, CancellationToken token)
-    {
-
-        if (HttpContext.Session.Get("ID") == null)
-        {
-            return View();
-        }
-        
-        var ticket = await Mediator.Send(new UpdateTicketCommand(
-                    BitConverter.ToInt32(
-                        HttpContext.Session.Get("ID")),
-                    user.Telegram,
-                    user.WalletBsc,
-                    user.Name),
-                token)
-                
-            .ConfigureAwait(false);
-            ViewBag.User = user;
-
-            return View();
-
-
-    }
+     } */
 
 }

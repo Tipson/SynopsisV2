@@ -17,7 +17,7 @@ namespace WebUI.Controllers;
 public class PartnersController : ApiControllerBase
 {
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<PartnerDto>>> GetAll(GetListPartnerQuery command)
+    public async Task<ActionResult<PartnerDto>> GetAll(GetListPartnerQuery command)
     {
         var result = await Mediator.Send(command)
             .ConfigureAwait(false);
@@ -25,7 +25,7 @@ public class PartnersController : ApiControllerBase
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<PartnerDto>>> GetGrouped(GetGroupedAgendasQuery query)
+    public async Task<ActionResult<PartnerDto>> GetGrouped(GetGroupedAgendasQuery query)
     {
         var result = await Mediator.Send(query)
             .ConfigureAwait(false);
@@ -47,11 +47,10 @@ public class PartnersController : ApiControllerBase
     }
 
     [HttpDelete("[action]")]
-    public async Task<ActionResult> Delete(DeletePartnerCommand command)
+    public async Task<Unit> Delete(DeletePartnerCommand command)
     { 
-        await Mediator.Send(command)
+        return await Mediator.Send(command)
             .ConfigureAwait(false);
-        return NoContent();
     }
 
     [HttpPut("[action]")]

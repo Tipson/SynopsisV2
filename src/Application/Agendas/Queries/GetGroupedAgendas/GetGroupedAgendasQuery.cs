@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Synopsis.Infrastructure;
 using SynopsisV2.Application.Agendas.Queries.GetListAgendas;
+using SynopsisV2.Application.Common.Interfaces;
 using SynopsisV2.Domain.Entities;
 using SynopsisV2.Domain.Enums;
 

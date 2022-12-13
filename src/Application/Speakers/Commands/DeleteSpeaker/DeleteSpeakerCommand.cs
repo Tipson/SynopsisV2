@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Synopsis.Infrastructure;
+using SynopsisV2.Application.Common.Interfaces;
 
 namespace SynopsisV2.Application.Speakers.Commands.DeleteSpeaker;
 

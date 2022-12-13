@@ -2,6 +2,7 @@
 using MediatR;
 using Synopsis.Infrastructure;
 using Synopsis.Infrastructure.DbContext.Entities;
+using SynopsisV2.Application.Common.Interfaces;
 using SynopsisV2.Application.Common.Models;
 
 namespace SynopsisV2.Application.Tickets.Commands.CreateTicket;

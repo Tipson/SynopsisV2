@@ -1,4 +1,6 @@
-namespace Synopsis.Infrastructure.DbContext.Entities;
+using Synopsis.Infrastructure.DbContext.Entities;
+
+namespace SynopsisV2.Domain.Entities;
 
 public class Logo
 {

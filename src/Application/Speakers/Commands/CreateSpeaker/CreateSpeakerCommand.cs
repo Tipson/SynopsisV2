@@ -4,7 +4,9 @@ using Synopsis.Infrastructure;
 using Synopsis.Infrastructure.DbContext.Entities;
 using Synopsis.Models;
 using Synopsis.Models.Speakers;
+using SynopsisV2.Application.Common.Interfaces;
 using SynopsisV2.Application.Common.Models;
+using SynopsisV2.Domain.Entities;
 using SynopsisV2.Domain.Enums;
 
 namespace SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
@@ -29,7 +31,7 @@ public record CreateSpeakerCommand(
     bool IsShow = true,
     bool CommissionMember = false,
     bool IsFavorite = false,
-    int? PartnerId = null) : IRequest<Common.Models.SpeakerDto>;
+    int? PartnerId = null) : IRequest<SpeakerDto>;
 
 public class CreateSpeakerCommandHandler : IRequestHandler<CreateSpeakerCommand, SpeakerDto>
 {
@@ -43,7 +45,7 @@ public class CreateSpeakerCommandHandler : IRequestHandler<CreateSpeakerCommand,
     }
     public async Task<SpeakerDto> Handle(CreateSpeakerCommand request, CancellationToken cancellationToken)
     {
-        var row = new Synopsis.Infrastructure.DbContext.Entities.Speaker(
+        var row = new Speaker(
             request.NameEn,
             request.NameRu,
             request.PositionEn,

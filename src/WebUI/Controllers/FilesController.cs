@@ -1,14 +1,10 @@
 ﻿using System.Net;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using Synopsis.Infrastructure;
-using Synopsis.Models.Commands.Error;
-using Synopsis.Utils;
 using SynopsisV2.Application.Errors.Commands.CreateError;
 using SynopsisV2.WebUI.Controllers;
 
-namespace Synopsis.Controllers;
+namespace WebUI.Controllers;
 
 [ApiController]
 [Route("[controller]")]

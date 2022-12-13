@@ -3,6 +3,7 @@ using Synopsis.Models;
 using Synopsis.Models.Partners;
 using Synopsis.Models.Speakers;
 using SynopsisV2.Application.Common.Mappings;
+using SynopsisV2.Domain.Entities;
 using SynopsisV2.Domain.Enums;
 
 namespace SynopsisV2.Application.Common.Models;

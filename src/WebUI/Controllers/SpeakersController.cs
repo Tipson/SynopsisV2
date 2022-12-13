@@ -14,11 +14,10 @@ namespace WebUI.Controllers;
 public class SpeakersController : ApiControllerBase
 {
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<SpeakerListDto>>> GetAll(GetListSpeakerQuery command)
+    public async Task<ActionResult<SpeakerListDto>> GetAll(GetListSpeakerQuery command)
     {
-        var result = await Mediator.Send(command)
+        return await Mediator.Send(command)
             .ConfigureAwait(false);
-        return Ok(result);
     }
 
     [HttpPost("[action]")]

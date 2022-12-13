@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SynopsisV2.Application.Agendas.Commands.CreateAgenda;
 using SynopsisV2.Application.Agendas.Commands.DeleteAgenda;
 using SynopsisV2.Application.Agendas.Commands.UpdateAgenda;
@@ -23,19 +24,18 @@ public class AgendaController : ApiControllerBase
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<AgendaListDto>>> GetAll(GetListAgendasQuery query)
+    public async Task<ActionResult<AgendaListDto>> GetAll(GetListAgendasQuery query)
     {
-        var result = await Mediator.Send(query)
+        return await Mediator.Send(query)
             .ConfigureAwait(false);
-        return Ok(result);
     }
     
     [HttpGet("[action]")]
     public async Task<ActionResult<AgendasGroupedCollection>> GetGrouped(GetGroupedAgendasQuery query)
     {
-        var result = await Mediator.Send(query)
+        return await Mediator.Send(query)
             .ConfigureAwait(false);
-        return result;
+        
     }
 
     [HttpPost("[action]")]
@@ -53,11 +53,10 @@ public class AgendaController : ApiControllerBase
     }
     
     [HttpDelete("[action]")]
-    public async Task<ActionResult> Delete(DeleteAgendaCommand command)
+    public async Task<Unit> Delete(DeleteAgendaCommand command)
     {
-        await Mediator.Send(command)
+        return await Mediator.Send(command)
             .ConfigureAwait(false);
-        return NoContent();
     }
     
 }

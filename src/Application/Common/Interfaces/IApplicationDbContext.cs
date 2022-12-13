@@ -2,7 +2,7 @@
 using Synopsis.Infrastructure.DbContext.Entities;
 using SynopsisV2.Domain.Entities;
 
-namespace Synopsis.Infrastructure;
+namespace SynopsisV2.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {

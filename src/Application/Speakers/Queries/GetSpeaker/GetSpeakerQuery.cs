@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Synopsis.Infrastructure;
 using Synopsis.Infrastructure.DbContext.Entities;
 using Synopsis.Models.Speakers;
+using SynopsisV2.Application.Common.Interfaces;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 using SynopsisV2.Domain.Enums;
