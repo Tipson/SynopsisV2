@@ -10,7 +10,7 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
     private readonly ICurrentUserService _currentUserService;
     private readonly IIdentityService _identityService;
 
-    public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService)
+    public LoggingBehaviour(ILogger logger, ICurrentUserService currentUserService, IIdentityService identityService)
     {
         _logger = logger;
         _currentUserService = currentUserService;
@@ -21,7 +21,7 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
     {
         var requestName = typeof(TRequest).Name;
         var userId = _currentUserService.UserId ?? string.Empty;
-        string userName = string.Empty;
+        string? userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))
         {

@@ -1,3 +1,5 @@
+using SynopsisV2.Application;
+using SynopsisV2.Infrastructure;
 using SynopsisV2.Infrastructure.Persistence;
 using WebUI;
 

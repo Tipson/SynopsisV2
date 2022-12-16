@@ -1,22 +1,19 @@
-﻿using SynopsisV2.Application.Common.Interfaces;
-using SynopsisV2.Infrastructure.Files;
-using SynopsisV2.Infrastructure.Identity;
-using SynopsisV2.Infrastructure.Persistence;
-using SynopsisV2.Infrastructure.Persistence.Interceptors;
-using SynopsisV2.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SynopsisV2.Application.Common.Interfaces;
+using SynopsisV2.Infrastructure.Identity;
+using SynopsisV2.Infrastructure.Persistence;
+using SynopsisV2.Infrastructure.Services;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace SynopsisV2.Infrastructure;
 
 public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<AuditableEntitySaveChangesInterceptor>();
-
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -41,9 +38,7 @@ public static class ConfigureServices
         services.AddIdentityServer()
             .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-        services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
-        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

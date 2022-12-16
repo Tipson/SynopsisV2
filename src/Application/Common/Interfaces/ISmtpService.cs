@@ -1,4 +1,4 @@
-﻿using SynopsisV2.Application.Feedbacks.Queries.SendSmtpCommand;
+﻿using SynopsisV2.Application.Common.Models;
 
 namespace SynopsisV2.Application.Common.Interfaces;
 

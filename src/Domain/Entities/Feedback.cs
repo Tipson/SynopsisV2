@@ -6,4 +6,12 @@ public class Feedback
     public string? Email { get; set; }
     public string? Body { get; set; }
     public DateTimeOffset DateTimeSend { get; set; }
+
+    public Feedback(string email, string body)
+    {
+        Id = Guid.NewGuid();
+        Email = email;
+        Body = body;
+        DateTimeSend = DateTimeOffset.Now;
+    }
 }

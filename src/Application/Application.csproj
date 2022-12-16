@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Feedbacks\Commands" />
+      <Folder Include="Feedbacks\Queries" />
     </ItemGroup>
 
 </Project>

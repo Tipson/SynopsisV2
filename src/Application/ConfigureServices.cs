@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
-using SynopsisV2.Application.Common.Behaviours;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using SynopsisV2.Application.Common.Behaviours;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace SynopsisV2.Application;
 
 public static class ConfigureServices
 {

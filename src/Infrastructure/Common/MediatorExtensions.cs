@@ -1,7 +1,8 @@
-﻿using SynopsisV2.Domain.Common;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SynopsisV2.Domain.Common;
 
-namespace MediatR;
+namespace SynopsisV2.Infrastructure.Common;
 
 public static class MediatorExtensions
 {
@@ -12,11 +13,12 @@ public static class MediatorExtensions
             .Where(e => e.Entity.DomainEvents.Any())
             .Select(e => e.Entity);
 
-        var domainEvents = entities
+        IEnumerable<BaseEntity> baseEntities = entities as BaseEntity[] ?? entities.ToArray();
+        var domainEvents = baseEntities
             .SelectMany(e => e.DomainEvents)
             .ToList();
 
-        entities.ToList().ForEach(e => e.ClearDomainEvents());
+        baseEntities.ToList().ForEach(e => e.ClearDomainEvents());
 
         foreach (var domainEvent in domainEvents)
             await mediator.Publish(domainEvent);
