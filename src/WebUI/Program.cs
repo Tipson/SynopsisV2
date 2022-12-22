@@ -1,6 +1,5 @@
 using SynopsisV2.Application;
 using SynopsisV2.Infrastructure;
-using SynopsisV2.Infrastructure.Persistence;
 using WebUI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +9,9 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebUIServices();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,11 +37,8 @@ app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseSwaggerUi3(settings =>
-{
-    settings.Path = "/api";
-    settings.DocumentPath = "/api/specification.json";
-});
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseRouting();
 

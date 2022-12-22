@@ -12,32 +12,32 @@ namespace WebUI.Controllers;
 public class TicketsController : ApiControllerBase
 {
 
-    [Route("TicketCheck")]
-    public async Task<ActionResult> TicketCheck([Required]int code, CancellationToken token = default)
-    {
-        HttpContext.Session.Set("Result", null);
-
-        if (string.IsNullOrWhiteSpace(code.ToString()))
-        {
-            return new RedirectResult("/" + HttpContext.Session.Get("Culture") + "/ticket?type=2");
-        }
-
-        var ticket = await Mediator.Send(new GetTicketQuery(code));
-
-        if (ticket.Type != 0)
-        {
-            HttpContext.Session.Set("Result", BitConverter.GetBytes(1));
-            HttpContext.Session.Set("ID", BitConverter.GetBytes(ticket.Id));
-        }
-
-        return new RedirectResult("/" + HttpContext.Session.Get("Culture") + "/ticket?type=2");
-    }
+    // [Route("[action]")]
+    // public async Task<ActionResult> TicketCheck([Required]int code, CancellationToken token = default)
+    // {
+    //     HttpContext.Session.Set("Result", null);
+    //
+    //     if (string.IsNullOrWhiteSpace(code.ToString()))
+    //     {
+    //         return new RedirectResult("/" + HttpContext.Session.Get("Culture") + "/ticket?type=2");
+    //     }
+    //
+    //     var ticket = await Mediator.Send(new GetTicketQuery(code));
+    //
+    //     if (ticket.Type != 0)
+    //     {
+    //         HttpContext.Session.Set("Result", BitConverter.GetBytes(1));
+    //         HttpContext.Session.Set("ID", BitConverter.GetBytes(ticket.Id));
+    //     }
+    //
+    //     return new RedirectResult("/" + HttpContext.Session.Get("Culture") + "/ticket?type=2");
+    // }
     
-    [Route("ticket_success")]
-    public ActionResult TicketSuccess()
-    {
-        return new EmptyResult();
-    }
+    // [Route("[action]")]
+    // public ActionResult TicketSuccess()
+    // {
+    //     return new EmptyResult();
+    // }
     
     /* [HttpGet]
     public async Task<ActionResult> Ticket(int type, CancellationToken token = default)
