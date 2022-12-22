@@ -11,4 +11,7 @@ public class Logo
         SpeakerId = speakerId;   
         LogoPath = logo;
     }
+    
+    private Logo()
+    {}
 }

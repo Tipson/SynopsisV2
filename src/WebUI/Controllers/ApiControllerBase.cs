@@ -1,8 +1,7 @@
 ﻿using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
-namespace SynopsisV2.WebUI.Controllers;
+namespace WebUI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

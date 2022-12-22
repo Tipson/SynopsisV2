@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Synopsis.Infrastructure;
 using SynopsisV2.Application.Common.Interfaces;
+using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Domain.Entities;
 using SynopsisV2.Domain.Enums;
 
@@ -29,7 +30,7 @@ public class GetListAgendasQueryHandler : IRequestHandler<GetListAgendasQuery, A
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
         
-        var models = _mapper.Map<List<Agenda>>(rows);
+        var models = _mapper.Map<List<AgendaDto>>(rows);
         foreach (var model in models)
         {
             if (request.Lang == "ru")
@@ -49,6 +50,10 @@ public class GetListAgendasQueryHandler : IRequestHandler<GetListAgendasQuery, A
                 }            
             }
         }
-        return _mapper.Map<AgendaListDto>(models);    
+
+        return new AgendaListDto
+        {
+            Agendas = models
+        };
     }
 }

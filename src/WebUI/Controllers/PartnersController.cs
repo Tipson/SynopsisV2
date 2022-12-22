@@ -8,7 +8,6 @@ using SynopsisV2.Application.Partners.Commands.DeletePartner;
 using SynopsisV2.Application.Partners.Commands.UpdatePartner;
 using SynopsisV2.Application.Partners.Commands.UpdateVisibilityPartner;
 using SynopsisV2.Application.Partners.Queries.GetListPartner;
-using SynopsisV2.WebUI.Controllers;
 
 namespace WebUI.Controllers;
 
@@ -17,7 +16,7 @@ namespace WebUI.Controllers;
 public class PartnersController : ApiControllerBase
 {
     [HttpGet("[action]")]
-    public async Task<ActionResult<PartnerDto>> GetAll(GetListPartnerQuery command)
+    public async Task<ActionResult<PartnerDto>> GetAll([FromQuery]GetListPartnerQuery command)
     {
         var result = await Mediator.Send(command)
             .ConfigureAwait(false);
@@ -25,7 +24,7 @@ public class PartnersController : ApiControllerBase
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<PartnerDto>> GetGrouped(GetGroupedAgendasQuery query)
+    public async Task<ActionResult<PartnerDto>> GetGrouped([FromQuery]GetGroupedAgendasQuery query)
     {
         var result = await Mediator.Send(query)
             .ConfigureAwait(false);
@@ -33,28 +32,28 @@ public class PartnersController : ApiControllerBase
     }
     
     [HttpPost("[action]")]
-    public async Task<ActionResult<PartnerDto>> Create(CreatePartnerCommand command)
+    public async Task<ActionResult<PartnerDto>> Create([FromBody]CreatePartnerCommand command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
 
     [HttpPost("[action]")]
-    public async Task<PartnerDto> Update(UpdatePartnerCommand command)
+    public async Task<PartnerDto> Update([FromBody]UpdatePartnerCommand command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
 
     [HttpDelete("[action]")]
-    public async Task<Unit> Delete(DeletePartnerCommand command)
+    public async Task<Unit> Delete([FromQuery]DeletePartnerCommand command)
     { 
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
 
     [HttpPut("[action]")]
-    public async Task<PartnerDto> UpdateVisibility(UpdateVisibilityPartnerCommand command)
+    public async Task<PartnerDto> UpdateVisibility([FromBody]UpdateVisibilityPartnerCommand command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);

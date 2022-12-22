@@ -8,7 +8,6 @@ using SynopsisV2.Application.Agendas.Queries.GetGroupedAgendas;
 using SynopsisV2.Application.Agendas.Queries.GetListAgendas;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Domain.Entities;
-using SynopsisV2.WebUI.Controllers;
 
 namespace WebUI.Controllers;
 
@@ -17,21 +16,21 @@ namespace WebUI.Controllers;
 public class AgendaController : ApiControllerBase
 {
     [HttpGet("[action]")]
-    public async Task<ActionResult<AgendaDto>> Get(GetAgendaQuery query)
+    public async Task<ActionResult<AgendaDto>> Get([FromQuery]GetAgendaQuery query)
     {
         return await Mediator.Send(query)
             .ConfigureAwait(false);
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<AgendaListDto>> GetAll(GetListAgendasQuery query)
+    public async Task<ActionResult<AgendaListDto>> GetAll([FromQuery]GetListAgendasQuery query)
     {
         return await Mediator.Send(query)
             .ConfigureAwait(false);
     }
     
     [HttpGet("[action]")]
-    public async Task<ActionResult<AgendasGroupedCollection>> GetGrouped(GetGroupedAgendasQuery query)
+    public async Task<ActionResult<AgendasGroupedCollection>> GetGrouped([FromQuery]GetGroupedAgendasQuery query)
     {
         return await Mediator.Send(query)
             .ConfigureAwait(false);
@@ -39,21 +38,21 @@ public class AgendaController : ApiControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<ActionResult<AgendaDto>> Create(CreateAgendaCommand command)
+    public async Task<ActionResult<AgendaDto>> Create([FromBody]CreateAgendaCommand command)
     {  
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
     
-    [HttpPost("[action]")]
-    public async Task<AgendaDto> Update(UpdateAgendaCommand command)
+    [HttpPut("[action]")]
+    public async Task<AgendaDto> Update([FromBody]UpdateAgendaCommand command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
     
     [HttpDelete("[action]")]
-    public async Task<Unit> Delete(DeleteAgendaCommand command)
+    public async Task<Unit> Delete([FromQuery]DeleteAgendaCommand command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);

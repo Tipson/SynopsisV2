@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SynopsisV2.Application.Agendas.Queries.GetAgenda;
-using SynopsisV2.WebUI.Controllers;
 
 namespace WebUI.Controllers;
 
@@ -9,7 +8,7 @@ namespace WebUI.Controllers;
 public class CalendarController : ApiControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<string>> CreateAgendaGoogleCalendarLink(GetAgendaQuery query,
+    public async Task<ActionResult<string>> CreateAgendaGoogleCalendarLink([FromQuery]GetAgendaQuery query,
         CancellationToken token, string language)
     {
         var agenda = await Mediator.Send(query, token);

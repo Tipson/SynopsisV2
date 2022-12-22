@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SynopsisV2.Application.Common.Models;
 using SynopsisV2.Application.Tickets.Commands.UpdateTicket;
 using SynopsisV2.Application.Tickets.Queries.GetTicket;
-using SynopsisV2.WebUI.Controllers;
 
 namespace WebUI.Controllers;
 

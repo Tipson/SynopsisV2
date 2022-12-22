@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using SynopsisV2.Application.Common.Interfaces;
 using SynopsisV2.Domain.Entities;
-using SynopsisV2.Infrastructure.Identity;
 using Duende.IdentityServer.EntityFramework.Options;
 using MediatR;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
@@ -12,15 +11,14 @@ using SynopsisV2.Infrastructure.Common;
 
 namespace SynopsisV2.Infrastructure.Persistence;
 
-public partial class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     private readonly IMediator _mediator;
 
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
-        IOptions<OperationalStoreOptions> operationalStoreOptions,
         IMediator mediator) 
-        : base(options, operationalStoreOptions)
+        : base(options)
     {
         _mediator = mediator;
     }

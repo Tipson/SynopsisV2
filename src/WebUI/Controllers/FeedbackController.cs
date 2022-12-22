@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SynopsisV2.Application.Feedbacks.Commands;
-using SynopsisV2.WebUI.Controllers;
 
 namespace WebUI.Controllers;
 

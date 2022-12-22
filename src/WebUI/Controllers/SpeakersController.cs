@@ -5,7 +5,7 @@ using SynopsisV2.Application.Speakers.Commands.CreateSpeaker;
 using SynopsisV2.Application.Speakers.Commands.UpdateSpeaker;
 using SynopsisV2.Application.Speakers.Commands.UpdateVisibilitySpeaker;
 using SynopsisV2.Application.Speakers.Queries.GetListSpeakers;
-using SynopsisV2.WebUI.Controllers;
+using SynopsisV2.Application.Speakers.Queries.GetSpeaker;
 
 namespace WebUI.Controllers;
 
@@ -14,28 +14,35 @@ namespace WebUI.Controllers;
 public class SpeakersController : ApiControllerBase
 {
     [HttpGet("[action]")]
-    public async Task<ActionResult<SpeakerListDto>> GetAll(GetListSpeakerQuery command)
+    public async Task<ActionResult<SpeakerListDto>> GetAll([FromQuery]GetListSpeakerQuery command)
+    {
+        return await Mediator.Send(command)
+            .ConfigureAwait(false);
+    }
+    
+    [HttpGet("[action]")]
+    public async Task<ActionResult<SpeakerDto>> Get([FromQuery]GetSpeakerQuery command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
 
     [HttpPost("[action]")]
-    public async Task<SpeakerDto> Create(CreateSpeakerCommand command)
+    public async Task<SpeakerDto> Create([FromBody]CreateSpeakerCommand command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);
     }
     
     [HttpPost("[action]")]
-    public async Task<ActionResult<SpeakerDto>> Update(UpdateSpeakerCommand command)
+    public async Task<ActionResult<SpeakerDto>> Update([FromBody]UpdateSpeakerCommand command)
     {
         return await Mediator.Send(command) 
             .ConfigureAwait(false);
     }
 
     [HttpPut("[action]")]
-    public async Task<SpeakerDto> UpdateVisibility(UpdateSpeakerCommand command)
+    public async Task<SpeakerDto> UpdateVisibility([FromQuery]UpdateVisibilitySpeakerCommand command)
     {
         return await Mediator.Send(command)
             .ConfigureAwait(false);
